@@ -1,0 +1,46 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+     </section>
+  </aside>
+	<aside class="span4">
+		<section>	
+			<%= form_tag("/search", :method=>"get") do %>		
+				<%= label_tag(:query, "Search Keyword: ")%>
+				<%= text_field_tag(:query) %>	
+				
+				<%= submit_tag("Search",class: "btn btn-large btn-warning")%> 
+			<% end %>
+		
+		</section>
+	</aside>
+<div class = "rows">
+
+	<aside class="span8">
+		<ul class="res">
+			<% if session[:res]%>
+				<%if !session[:res][0].nil?%>
+				<% i = 0 %>
+				<% session[:res].each do |r| %>	
+					 <li>
+						<% if r.start_with?("http") %>
+						<%= link_to r, r, :target=>"_blank" %>
+						<% else %>
+						<% i=i+1 %>
+						<h4><%=i %> Thread: <%=link_to r,href:"#"%></h4>
+						<%end%>
+					</li>
+					<%end%>
+				<% else %>
+						<h4><b> Sorry, We have not found the item</b></h4>
+		  	<%end%>
+			<%end%>
+		</ul>
+	</aside>
+</div>
+</div>
